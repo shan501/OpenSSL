@@ -165,13 +165,32 @@ For the intermediate CA we would create a request for a certificate from the roo
 open ssl req -config sub_ca.conf -new -key private/sub_ca.key -sha256 -out csr/sub_ca.csr
 ``` 
 Now we want to use the root CA to authorize this 
+We store the certificate request on the directory of the sub CA so we will specify where the request is in the command and we also want to specify where to output the signed request. 
 
 ```
 #navigate to root CA
 openssl ca -config root_ca.conf -extensions v3_intermediate_ca -days 3650 -notext -in ../sub_ca/csr/sub_ca.csr -out ../sub_ca/certs/sub_ca.crt
 
 ```
+## Create Server Certificate 
+Create a request for a certificate 
+```
+#navigate to server directory 
+openssl req -key private/server.key -new -sha256 -out csr/server.csr 
+#It will ask for configuration , the most important one is the common name or FQDN.This what the client will use to try and connect to the server 
 
+```
+Sign the request using the intermediate CA
+
+``` 
+#Go to the sub CA directory 
+openssl ca -config sub-ca.conf -extensions server_cert -days 365 -notext -in ../server/csr/server.csr -out ../server/certs/server.crt
+
+```
+
+## Conclusions
+
+AGAIN if anything here is confusing , go check out the video made by theurbanpenguin.https://www.youtube.com/watch?v=d8OpUcHzTeg&t=22s.
 
 
 
