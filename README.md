@@ -9,15 +9,15 @@ Certificates are used for encrypted communications between devices.SSL are commo
 ## Create directories
 Create the structure for your Certificates Authorities. In this tutorial we will be doing everything on the same system.Typically you will have the root certificate in a seperate offline system for sercurity reasons 
 
-`
+```
 mkdir -p ca/{root_ca,sub_ca,server}/{private,certs,newcerts,crl,csr}
 
-`
+```
 We just created three directories.The root_ca , sub_ca, and server . Within each directory we created sub-directories private,certs,newcerts,crl,csr
 
 Each of the private directory needs to be secret and shouldnt be access by others so we set the permissions of it to RWX for owner only 
 
-`
+```
 chmod -v 700 ca/{root_ca,sub_ca,server}/private
 
-`
+```
